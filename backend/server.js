@@ -5,14 +5,18 @@ const cors = require('cors');
 
 const app = express();
 const server = http.createServer(app);
+const ALLOWED_ORIGINS = process.env.FRONTEND_URL
+  ? [process.env.FRONTEND_URL, 'http://localhost:3000']
+  : '*';
+
 const io = socketIo(server, {
   cors: {
-    origin: "http://localhost:3000",
+    origin: ALLOWED_ORIGINS,
     methods: ["GET", "POST"]
   }
 });
 
-app.use(cors());
+app.use(cors({ origin: ALLOWED_ORIGINS }));
 app.use(express.json());
 
 // ─── Drone Fleet State ────────────────────────────────────────────────────────
