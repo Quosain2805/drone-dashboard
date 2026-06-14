@@ -190,7 +190,8 @@ setInterval(() => {
   io.emit('drone_update', Object.values(drones));
 }, 2000);
 
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
+
 server.listen(PORT, () => {
   console.log(`\n🚀 Drone Command Center → http://localhost:${PORT}`);
   console.log(`📡 WebSocket ready | REST API on /api/*\n`);
